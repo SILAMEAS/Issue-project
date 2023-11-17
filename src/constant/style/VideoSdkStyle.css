@@ -1,0 +1,69 @@
+
+#video .eid-ui-canvas:nth-child(2) {
+    display: none !important
+}
+/* mobile */
+@media only screen and (max-width: 1000px) {
+    .eid-notification-modal .eid-notification-centered-content {
+        background-color: white !important;
+    }
+
+    .eid-notification .eid-notification-centered-content .eid-svg-container svg {
+        width: 120px;
+        height: 120px;
+    }
+
+    .eid-notification-centered-content .eid-h4 {
+        font-size: 1.4em !important;
+    }
+
+    .eid-notification-warning-error {
+        display: flex;
+        width: 100% !important;
+        height: 100% !important;
+        flex-direction: column;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+
+    .eid-notification-warning-error .eid-equal-container {
+        width: 100% !important;
+        height: 50% !important;
+        padding: 0 !important;
+    }
+
+    .eid-notification-warning-error
+    .eid-equal-container:nth-child(1)
+    .eid-svg-container {
+        max-width: none;
+        margin-bottom: 350px !important;
+        display: flex;
+        justify-content: center;
+    }
+
+    .eid-notification-warning-error .eid-equal-container .eid-svg-container svg {
+        width: 120px;
+        height: 120px;
+    }
+    .eid-notification-warning-error .eid-equal-container:nth-child(2) div {
+        max-width: none;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+    .eid-notification-warning-error .eid-equal-container:nth-child(2) div p {
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 500;
+    }
+}
+
+
+/* desktop */
+@media only screen and (min-width: 1000px) {
+    .video-contain {
+        width: 50% !important;
+    }
+}
