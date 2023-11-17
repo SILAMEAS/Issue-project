@@ -1,13 +1,14 @@
-import {pixelToRem} from '@/utils/common/pxToRem';
+import { $pixelToRem } from "@/utils/common/converter";
+
 
 export const FigmaBox = {
   BoxInTableModel: {
-    width: pixelToRem(118),
-    height: pixelToRem(32),
-    borderRadius: pixelToRem(6),
+    width: $pixelToRem(118),
+    height: $pixelToRem(32),
+    borderRadius: $pixelToRem(6),
     border: 1,
     borderColor: 'Black.main',
-    px: pixelToRem(16),
-    py: pixelToRem(6),
+    px: $pixelToRem(16),
+    py: $pixelToRem(6),
   },
 };

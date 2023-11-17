@@ -1,5 +1,7 @@
 // import "./globals.css";
+import ProtectRoute from "@/protect-route/ProtectRoute";
 import { Providers } from "@/redux/provider";
+import React from "react";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <ProtectRoute>{children}</ProtectRoute>
+          </Providers>
       </body>
     </html>
   );

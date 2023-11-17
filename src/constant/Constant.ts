@@ -1,5 +1,21 @@
-export const Constant={
-    Example:"example"
+export const MessageResponse={
+  errorUnknow:"something wenting worng",
+  errorNotFound:"Error not Found",
+  errorFound:{
+    delete:{
+      success:"Delete Success",
+      unSuccess:"Delete Failed"
+    },
+    create:{
+      success:"Create Success",
+      unSuccess:"Create Failed"
+    },
+    update:{
+      success:"Update Success",
+      unSuccess:"Update Failed"
+    },
+    
+  }
 }
 export enum StatusForntEnd {
     OPEN = "OPEN",

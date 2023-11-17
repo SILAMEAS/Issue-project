@@ -1,37 +1,59 @@
-
-import { IcreateIssue } from "@/utils/schema/issue/DtoCreateIssue";
+import { IcreateIssue } from "@/utils/schema/issue/DTO";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/Client";
+import {  MessageResponse } from "@/constant/Constant";
+import { $errorInCatch } from "@/utils/api/$error";
+import { IGetIsues } from "@/utils/schema/issue/Interface";
 
 
-export interface IGetIsues{
-    id:number;
-    title:string;
-    description:string;
-    status:"OPEN"|"IN_PROGRESS"|"CLOSE";
-    createAt:Date;
-    updatedAt:Date;
+
+/**
+ * =============== Get Issues ==================
+ */
+export async function GET() {
+  try{
+    const allIssue: IGetIsues[] = await prisma.issue.findMany();
+    if (allIssue) {
+      return NextResponse.json(allIssue, { status: 200 });
+    } else
+      return NextResponse.json({
+        status: 400,
+        message: MessageResponse.errorUnknow
+      });
+  } catch (error) {
+    $errorInCatch(error)
+  }
 }
+/**
+ * =============== Create Issue ==================
+ */
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const validation = IcreateIssue.safeParse(body);
+  try {
+    const data = await req.json();
+  const validation = IcreateIssue.safeParse(data);
   if (!validation.success) {
     return NextResponse.json(validation.error.formErrors, { status: 400 });
   }
-  const newIssue = await prisma.issue.create({
-    data: { title: body.title, description: body.description },
+   await prisma.issue.create({
+    data,
   });
-  return NextResponse.json(newIssue, { status: 201 });
+  return NextResponse.json({ status: 201,message:MessageResponse.errorFound.create.success});
+    
+  } catch (error) {
+    $errorInCatch(error)
+  }
 }
-
-export async function GET() {
-  const allIssue: IGetIsues[] = await prisma.issue.findMany();
-  if (allIssue){
-    return NextResponse.json(allIssue, { status: 200 });
-  } 
-  else return NextResponse.json([], { status: 400 });
-}
-export async function DELETE(pa:NextRequest) {
-  const body = await pa.json();
-  console.log(body)
+/**
+ * =============== DELETE Issue ==================
+ */
+export async function DELETE() {
+  try {
+ const Delete= await prisma.issue.deleteMany({});
+ if(Delete){
+  return NextResponse.json({status:200,message:MessageResponse.errorFound.delete.success}) 
+ }
+ return NextResponse.json({status:400,message:MessageResponse.errorFound.delete.unSuccess})
+  } catch (error) {
+    $errorInCatch(error)
+  }
 }
