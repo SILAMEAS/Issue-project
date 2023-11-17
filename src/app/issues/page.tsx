@@ -1,6 +1,7 @@
 "use client";
 import { MSLayoutHomePage } from "@/components/ms-layout/MSLayoutHomePage";
 import MSTable from "@/components/ms-table/MSTable";
+import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 interface IrowS{id:number,lastName:string,firstName:string,age:number}
 function Issuee() {
   const rows:IrowS[] = [
@@ -14,11 +15,46 @@ function Issuee() {
     { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
   ];
+  const widthScreen=1700/5;
+  
   return (
     <MSLayoutHomePage>
-      <MSTable<IrowS[]> rows={rows}/>
+      <MSTable<IrowS[]> rows={rows} columns={handlerColumns({widthScreen})}/>
     </MSLayoutHomePage>
   )
 }
-
+const handlerColumns=({widthScreen}:{widthScreen:number})=>{
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: widthScreen },
+    {
+      field: "firstName",
+      headerName: "First name",
+      width: widthScreen,
+      editable: true,
+    },
+    {
+      field: "lastName",
+      headerName: "Last name",
+      width: widthScreen,
+      editable: true,
+    },
+    {
+      field: "age",
+      headerName: "Age",
+      type: "number",
+      width: widthScreen,
+      editable: true,
+    },
+    {
+      field: "fullName",
+      headerName: "Full name",
+      description: "This column has a value getter and is not sortable.",
+      sortable: false,
+      width: widthScreen,
+      valueGetter: (params: GridValueGetterParams) =>
+        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    },
+  ];
+  return columns
+}
 export default Issuee

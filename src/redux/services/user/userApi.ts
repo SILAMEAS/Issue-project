@@ -19,6 +19,9 @@ export const userApi = createApi({
     getUserById: builder.query<User, { id: string }>({
       query: ({ id }) => `users/${id}`,
     }),
+    getIssues: builder.query<User[], null>({
+      query: () => "users",
+    }),
   }),
 });
 
