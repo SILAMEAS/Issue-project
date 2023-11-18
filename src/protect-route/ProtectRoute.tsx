@@ -1,10 +1,8 @@
-"use client"
-import { PropsWithChildren } from 'react';
+"use client";
+import { PropsWithChildren } from "react";
 
-function ProtectRoute({children}:Readonly<PropsWithChildren>) {
-  return (
-    <div> {children}</div>
-  ) 
+function ProtectRoute({ children }: Readonly<PropsWithChildren>) {
+  return <div>{children}</div>;
 }
 
-export default ProtectRoute
+export default ProtectRoute;

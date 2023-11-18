@@ -1,27 +1,25 @@
-import { IcreateIssue } from "@/utils/schema/issue/DTO";
+import { MessageResponse } from "@/constant/Constant";
+import { $errorInCatch } from "@/utils/api/$error";
+import { SchemaCreateIssue } from "@/utils/schema/issue/DTO";
+import { InterfaceGetIssue } from "@/utils/schema/issue/Interface";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/Client";
-import {  MessageResponse } from "@/constant/Constant";
-import { $errorInCatch } from "@/utils/api/$error";
-import { IGetIsues } from "@/utils/schema/issue/Interface";
-
-
 
 /**
  * =============== Get Issues ==================
  */
 export async function GET() {
-  try{
-    const allIssue: IGetIsues[] = await prisma.issue.findMany();
+  try {
+    const allIssue: InterfaceGetIssue[] = await prisma.issue.findMany();
     if (allIssue) {
       return NextResponse.json(allIssue, { status: 200 });
     } else
       return NextResponse.json({
         status: 400,
-        message: MessageResponse.errorUnknow
+        message: MessageResponse.errorUnknow,
       });
   } catch (error) {
-    $errorInCatch(error)
+    $errorInCatch(error);
   }
 }
 /**
@@ -30,17 +28,19 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-  const validation = IcreateIssue.safeParse(data);
-  if (!validation.success) {
-    return NextResponse.json(validation.error.formErrors, { status: 400 });
-  }
-   await prisma.issue.create({
-    data,
-  });
-  return NextResponse.json({ status: 201,message:MessageResponse.errorFound.create.success});
-    
+    const validation = SchemaCreateIssue.safeParse(data);
+    if (!validation.success) {
+      return NextResponse.json(validation.error.formErrors, { status: 400 });
+    }
+    await prisma.issue.create({
+      data,
+    });
+    return NextResponse.json({
+      status: 201,
+      message: MessageResponse.errorFound.create.success,
+    });
   } catch (error) {
-    $errorInCatch(error)
+    $errorInCatch(error);
   }
 }
 /**
@@ -48,12 +48,18 @@ export async function POST(req: NextRequest) {
  */
 export async function DELETE() {
   try {
- const Delete= await prisma.issue.deleteMany({});
- if(Delete){
-  return NextResponse.json({status:200,message:MessageResponse.errorFound.delete.success}) 
- }
- return NextResponse.json({status:400,message:MessageResponse.errorFound.delete.unSuccess})
+    const Delete = await prisma.issue.deleteMany({});
+    if (Delete) {
+      return NextResponse.json({
+        status: 200,
+        message: MessageResponse.errorFound.delete.success,
+      });
+    }
+    return NextResponse.json({
+      status: 400,
+      message: MessageResponse.errorFound.delete.unSuccess,
+    });
   } catch (error) {
-    $errorInCatch(error)
+    $errorInCatch(error);
   }
 }

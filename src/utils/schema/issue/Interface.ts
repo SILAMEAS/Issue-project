@@ -1,8 +1,7 @@
-export interface IGetIsues {
-    id: number;
-    title: string;
-    description: string;
-    status: "OPEN" | "IN_PROGRESS" | "CLOSE";
-    createAt: Date;
-    updatedAt: Date;
-  }
+import { z } from "zod";
+import { SchemaCreateIssue, SchemaGetIssues } from "./DTO";
+export type InterfaceCreateIssue = z.infer<typeof SchemaCreateIssue>;
+export type InterfaceGetIssue = z.infer<typeof SchemaGetIssues>;
+export interface InterfaceParams {
+  params: { id: string };
+}

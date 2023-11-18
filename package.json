@@ -12,14 +12,16 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@hookform/resolvers": "3.3.1",
+    "@hookform/resolvers": "^3.3.2",
     "@mui/material": "^6.18.1",
     "@mui/x-data-grid": "^6.18.1",
     "@prisma/client": "^5.6.0",
+    "@react-hook/window-size": "^3.1.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "axios": "^1.6.2",
     "easymde": "^2.18.0",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
@@ -32,5 +34,8 @@
     "react-simplemde-editor": "^5.2.0",
     "typescript": "5.0.2",
     "zod": "3.22.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.0"
   }
 }

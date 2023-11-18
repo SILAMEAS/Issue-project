@@ -1,18 +1,16 @@
+import { MessageResponse } from "@/constant/Constant";
+import { $errorInCatch } from "@/utils/api/$error";
+import {InterfaceGetIssue, InterfaceParams} from "@/utils/schema/issue/Interface";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../prisma/Client";
-import { $errorInCatch } from "@/utils/api/$error";
-import { MessageResponse } from "@/constant/Constant";
-import { IGetIsues } from "@/utils/schema/issue/Interface";
-interface IGet {
-  params: { id: string };
-}
+import { SchemaUpdateIssue} from "@/utils/schema/issue/DTO";
+
 /**
  * =============== Get Issues ==================
  */
-export async function GET(props: IGet) {
-  const { params } = props;
+export async function GET(req:NextRequest,{params}: { params: {id:number} }) {
   try {
-    const findById: IGetIsues | null = await prisma.issue.findFirst({
+    const findById: InterfaceGetIssue | null = await prisma.issue.findFirst({
       where: { id: Number(params.id) },
     });
     if (findById) {
@@ -29,20 +27,24 @@ export async function GET(props: IGet) {
 /**
  * =============== Update Issue ==================
  */
-export async function UPDATE(req: NextRequest, props: IGet) {
-  const { params } = props;
+export async function PUT(req:NextRequest,{params}: { params: {id:number} }) {
+  console.log("UPDATE",params.id)
   const body = await req.json();
+  console.log("body",body)
+  const validation = SchemaUpdateIssue.safeParse(body);
+  if (!validation.success) {
+    return NextResponse.json(validation.error.formErrors, { status: 400 });
+  }
   try {
-    const Update = await prisma.issue.update({
+     await prisma.issue.update({
       where: {
         id: Number(params.id),
       },
       data: body,
     });
-
     return NextResponse.json({
-      status: 400,
-      message: MessageResponse.errorFound.delete.unSuccess,
+      status: 200,
+      message: MessageResponse.errorFound.update.success,
     });
   } catch (error) {
     $errorInCatch(error);

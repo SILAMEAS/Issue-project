@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-type User = {
+type IGetIssues = {
   id: number;
   name: string;
   email: number;
@@ -10,19 +10,16 @@ export const userApi = createApi({
   reducerPath: "userApi",
   refetchOnFocus: true,
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com/",
+    baseUrl: "http://localhost:3000",
   }),
   endpoints: (builder) => ({
-    getUsers: builder.query<User[], null>({
-      query: () => "users",
+    getIssues: builder.query<any, null>({
+      query: () => "api/issues",
     }),
-    getUserById: builder.query<User, { id: string }>({
+    getUserById: builder.query<any, { id: string }>({
       query: ({ id }) => `users/${id}`,
-    }),
-    getIssues: builder.query<User[], null>({
-      query: () => "users",
     }),
   }),
 });
 
-export const { useGetUsersQuery, useGetUserByIdQuery } = userApi;
+export const { useGetIssuesQuery, useGetUserByIdQuery } = userApi;
